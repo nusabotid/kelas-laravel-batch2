@@ -11,7 +11,7 @@ class DeviceController extends Controller
     {
         $devices = Device::select('id', 'serial_number', 'meta_data')
         ->orderBy('id', 'desc')
-        ->get();
+        ->paginate(5);
 
         return view('devices.index', [
             "devices" => $devices,
@@ -25,12 +25,17 @@ class DeviceController extends Controller
 
     public function store(Request $request)
     {
-        $device = [
-            "serial_number" => $request->input('serial_number'),
-            "meta_data" => $request->input('meta_data'),
-        ];
+        $validatedData = $request->validate([
+            "serial_number" => "required",
+            "meta_data" => "required",
+        ]);
 
-        Device::create($device);
+        // $device = [
+        //     "serial_number" => $request->input('serial_number'),
+        //     "meta_data" => $request->input('meta_data'),
+        // ];
+
+        Device::create($validatedData);
 
         return redirect('/devices')->with('success', 'Berhasil menambahkan data device!');
     }
@@ -46,13 +51,17 @@ class DeviceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $requestDevice = [
-            "serial_number" => $request->input('serial_number'),
-            "meta_data" => $request->input('meta_data'),
-        ];
+        $validatedData = $request->validate([
+            "serial_number" => "required",
+            "meta_data" => "required",
+        ]);
+        // $requestDevice = [
+        //     "serial_number" => $request->input('serial_number'),
+        //     "meta_data" => $request->input('meta_data'),
+        // ];
 
         $device = Device::where('id', $id);
-        $device->update($requestDevice);
+        $device->update($validatedData);
 
         return redirect('/devices')->with('success', 'Berhasil memperbarui data!');
     }

@@ -2,8 +2,8 @@
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-3">Data Device</h2>
-        <a href="/devices/create" class="btn btn-primary">TAMBAH DATA</a>
+        <h2 class="mb-3">Data Sensor</h2>
+        <a href="/sensors/create" class="btn btn-primary">TAMBAH DATA</a>
     </div>
 
     @if (session('success'))
@@ -17,21 +17,23 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Serial Number</th>
-                <th>Meta Data</th>
+                <th>Nama Sensor</th>
+                <th>Data</th>
+                <th>Topic</th>
                 <th>#</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($devices as $device)
+            @foreach ($sensors as $sensor)
                 <tr>
-                    <td>{{ ($devices->currentPage() - 1) * $devices->perPage() + $loop->index + 1 }}</td>
-                    <td>{{ $device->serial_number }}</td>
-                    <td>{{ $device->meta_data }}</td>
+                    <td>{{ ($sensors->currentPage() - 1) * $sensors->perPage() + $loop->index + 1 }}</td>
+                    <td>{{ $sensor->nama_sensor }}</td>
+                    <td>{{ $sensor->data }}</td>
+                    <td>{{ $sensor->topic }}</td>
                     <td>
                         <div class="d-flex">
-                            <a href="/devices/edit/{{ $device->id }}" class="btn btn-sm btn-warning d-inline-block me-2">Ubah</a>
-                            <form action="/devices/delete/{{ $device->id }}" method="post">
+                            <a href="/sensors/edit/{{ $sensor->id }}" class="btn btn-sm btn-warning d-inline-block me-2">Ubah</a>
+                            <form action="/sensors/delete/{{ $sensor->id }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
@@ -44,7 +46,7 @@
     </table>
 
     <div class="py-4">
-        {{ $devices->links('pagination::bootstrap-5') }}
+        {{ $sensors->links('pagination::bootstrap-5') }}
     </div>
 </div>
 @endsection

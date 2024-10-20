@@ -12,11 +12,17 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label for="serial_number">Serial Number</label>
-                    <input type="text" name="serial_number" id="serial_number" class="form-control">
+                    <input type="text" name="serial_number" id="serial_number" value="{{ old('serial_number') }}" class="form-control @error('serial_number') is-invalid @enderror">
+                    @error('serial_number')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="form-group mb-3">
                     <label for="meta_data">Meta Data</label>
-                    <input type="text" name="meta_data" id="meta_data" class="form-control">
+                    <input type="text" name="meta_data" id="meta_data" value="{{ old('meta_data') }}" class="form-control @error('meta_data') is-invalid @enderror">
+                    @error('meta_data')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="d-flex justify-content-end">
                     <div>

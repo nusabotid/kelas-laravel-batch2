@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SensorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'rootPage']);
@@ -55,3 +56,10 @@ Route::get('/devices/edit/{id}', [DeviceController::class, 'edit']);
 Route::post('/devices/store', [DeviceController::class, 'store']);
 Route::put('/devices/update/{id}', [DeviceController::class, 'update']);
 Route::delete('/devices/delete/{id}', [DeviceController::class, 'delete']);
+
+Route::get('/sensors', [SensorController::class, 'index']);
+Route::get('/sensors/create', [SensorController::class, 'create']);
+Route::post('/sensors/store', [SensorController::class, 'store']);
+Route::get('/sensors/edit/{id}', [SensorController::class, 'edit']);
+Route::put('/sensors/update/{id}', [SensorController::class, 'update']);
+Route::delete('/sensors/delete/{id}', [SensorController::class, 'delete']);
