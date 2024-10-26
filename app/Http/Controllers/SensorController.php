@@ -25,6 +25,12 @@ class SensorController extends Controller
             "nama_sensor" => "required|min:2",
             "data" => "required",
             "topic" => ["required", "min:2"],
+        ], [
+            "nama_sensor.required" => "Nama sensor harus diisi!",
+            "nama_sensor.min" => "Minimal 2 karakter",
+            "data.required" => "Data harus diisi!",
+            "topic.required" => "Topic harus diisi!",
+            "topic.min" => "Minimal 2 karakter!",
         ]);
 
         // $sensor = [
@@ -51,6 +57,12 @@ class SensorController extends Controller
             "nama_sensor" => "required|min:2",
             "data" => "required",
             "topic" => ["required", "min:2"],
+        ], [
+            "nama_sensor.required" => "Nama sensor harus diisi!",
+            "nama_sensor.min" => "Minimal 2 karakter",
+            "data.required" => "Data harus diisi!",
+            "topic.required" => "Topic harus diisi!",
+            "topic.min" => "Minimal 2 karakter",
         ]);
 
         // $sensor = [

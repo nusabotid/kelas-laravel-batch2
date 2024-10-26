@@ -37,7 +37,7 @@
                 </div>
                 <div class="d-flex justify-content-end">
                     <div>
-                        <a href="/devices" class="btn btn-outline-secondary">Kembali</a>
+                        <a href="/sensors" class="btn btn-outline-secondary">Kembali</a>
                         <button type="submit" class="btn btn-primary">
                             Simpan
                         </button>

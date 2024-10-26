@@ -26,8 +26,12 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            "serial_number" => "required",
+            "serial_number" => "required|min:2",
             "meta_data" => "required",
+        ], [
+            "serial_number.required" => "Serial number harus diisi!",
+            "serial_number.min" => "Minimal 2 karakter",
+            "meta_data.required" => "Meta data harus diisi!",
         ]);
 
         // $device = [
@@ -52,8 +56,12 @@ class DeviceController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            "serial_number" => "required",
+            "serial_number" => "required|min:2",
             "meta_data" => "required",
+        ], [
+            "serial_number.required" => "Serial number harus diisi!",
+            "serial_number.min" => "Minimal 2 karakter",
+            "meta_data.required" => "Meta data harus diisi!",
         ]);
         // $requestDevice = [
         //     "serial_number" => $request->input('serial_number'),
