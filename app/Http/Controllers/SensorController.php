@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SensorRequest;
 use App\Models\Sensor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SensorController extends Controller
 {
@@ -17,6 +18,9 @@ class SensorController extends Controller
 
     public function create()
     {
+        if (!Auth::check()) {
+            return back();
+        }
         return view('sensors.create');
     }
 
@@ -47,6 +51,10 @@ class SensorController extends Controller
 
     public function edit($id)
     {
+        if (!Auth::check()) {
+            return back();
+        }
+
         $sensor = Sensor::find($id);
 
         return view('sensors.edit', compact('sensor'));
@@ -79,6 +87,10 @@ class SensorController extends Controller
 
     public function delete($id)
     {
+        if (!Auth::check()) {
+            return back();
+        }
+
         Sensor::where('id', $id)->delete();
 
         return redirect('/sensors')->with('success', 'Berhasil menghapus data sensor!');

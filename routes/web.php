@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SensorController;
@@ -49,6 +50,8 @@ Route::get('/products/{id}', [ProductController::class, 'getDetail']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'delete']);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/devices', [DeviceController::class, 'index']);
 Route::get('/devices/create', [DeviceController::class, 'create']);
