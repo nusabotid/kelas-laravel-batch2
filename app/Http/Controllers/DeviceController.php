@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeviceRequest;
 use App\Models\Device;
 use Illuminate\Http\Request;
 
@@ -23,23 +24,23 @@ class DeviceController extends Controller
         return view('devices.create');
     }
 
-    public function store(Request $request)
+    public function store(DeviceRequest $request)
     {
-        $validatedData = $request->validate([
-            "serial_number" => "required|min:2",
-            "meta_data" => "required",
-        ], [
-            "serial_number.required" => "Serial number harus diisi!",
-            "serial_number.min" => "Minimal 2 karakter",
-            "meta_data.required" => "Meta data harus diisi!",
-        ]);
+        // $validatedData = $request->validate([
+        //     "serial_number" => "required|min:2",
+        //     "meta_data" => "required",
+        // ], [
+        //     "serial_number.required" => "Serial number harus diisi!",
+        //     "serial_number.min" => "Minimal 2 karakter",
+        //     "meta_data.required" => "Meta data harus diisi!",
+        // ]);
 
-        // $device = [
-        //     "serial_number" => $request->input('serial_number'),
-        //     "meta_data" => $request->input('meta_data'),
-        // ];
+        $device = [
+            "serial_number" => $request->input('serial_number'),
+            "meta_data" => $request->input('meta_data'),
+        ];
 
-        Device::create($validatedData);
+        Device::create($device);
 
         return redirect('/devices')->with('success', 'Berhasil menambahkan data device!');
     }
@@ -53,23 +54,23 @@ class DeviceController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(DeviceRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            "serial_number" => "required|min:2",
-            "meta_data" => "required",
-        ], [
-            "serial_number.required" => "Serial number harus diisi!",
-            "serial_number.min" => "Minimal 2 karakter",
-            "meta_data.required" => "Meta data harus diisi!",
-        ]);
-        // $requestDevice = [
-        //     "serial_number" => $request->input('serial_number'),
-        //     "meta_data" => $request->input('meta_data'),
-        // ];
+        // $validatedData = $request->validate([
+        //     "serial_number" => "required|min:2",
+        //     "meta_data" => "required",
+        // ], [
+        //     "serial_number.required" => "Serial number harus diisi!",
+        //     "serial_number.min" => "Minimal 2 karakter",
+        //     "meta_data.required" => "Meta data harus diisi!",
+        // ]);
+        $requestDevice = [
+            "serial_number" => $request->input('serial_number'),
+            "meta_data" => $request->input('meta_data'),
+        ];
 
         $device = Device::where('id', $id);
-        $device->update($validatedData);
+        $device->update($requestDevice);
 
         return redirect('/devices')->with('success', 'Berhasil memperbarui data!');
     }
