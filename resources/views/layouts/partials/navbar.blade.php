@@ -9,9 +9,11 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sensors">Data Sensor</a>
-          </li>
+          @if (auth()->user()->role === 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="/sensors">Data Sensor</a>
+            </li>
+          @endif
           <li class="nav-item">
             <a class="nav-link" href="/devices">Data Device</a>
           </li>

@@ -31,7 +31,8 @@
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="/register">Belum punya akun? Daftar</a>
                                 <button type="submit" class="btn btn-primary">Sign In</button>
                             </div>
                         </form>

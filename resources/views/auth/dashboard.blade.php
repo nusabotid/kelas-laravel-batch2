@@ -7,7 +7,9 @@
 
     <div>
         @if (auth()->check())
-            <p>Selamat datang user {{ auth()->user()->name ?? '-' }}</p>
+            <p>Selamat datang {{ auth()->user()->role }} {{ auth()->user()->name ?? '-' }}</p>
+            <br>
+            <a href="/ubah-password" class="d-inline-block btn btn-outline-primary">Ganti Password</a>
         @else
             <p>Belum ada user yang terautentikasi</p>
         @endif

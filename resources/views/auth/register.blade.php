@@ -38,7 +38,8 @@
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="/login">Masuk</a>
                                 <button type="submit" class="btn btn-primary">Sign Up</button>
                             </div>
                         </form>

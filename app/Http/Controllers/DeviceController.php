@@ -22,10 +22,6 @@ class DeviceController extends Controller
 
     public function create()
     {
-        if (!Auth::check()) {
-            return back();
-        }
-
         return view('devices.create');
     }
 
@@ -52,10 +48,6 @@ class DeviceController extends Controller
 
     public function edit($id)
     {
-        if (!Auth::check()) {
-            return back();
-        }
-
         $device = Device::find($id);
 
         return view('devices.edit', [
@@ -85,10 +77,6 @@ class DeviceController extends Controller
     }
 
     public function delete($id) {
-        if (!Auth::check()) {
-            return back();
-        }
-
         $device = Device::where('id', $id);
         $device->delete();
 
