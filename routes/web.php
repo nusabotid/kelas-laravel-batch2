@@ -54,6 +54,8 @@ Route::post('/products', [ProductController::class, 'store']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'delete']);
 
+Route::get('/public-dashboard', [DashboardController::class, 'publicDashboard']);
+
 Route::middleware("is-login")->group(function($router) {
     $router->get('/dashboard', [DashboardController::class, 'index']);
 
