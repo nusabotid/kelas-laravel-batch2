@@ -118,15 +118,15 @@
             <div class="card-container">
                 <div class="card">
                     <h3>Suhu</h3>
-                    <p>25°C</p>
+                    <p><span id="suhu">?</span>°C</p>
                 </div>
                 <div class="card">
                     <h3>Kelembapan</h3>
-                    <p>60%</p>
+                    <p><span id="kelembapan">?</span>%</p>
                 </div>
                 <div class="card">
                     <h3>Posisi Servo</h3>
-                    <input type="range" name="slider" id="inputServo" min="0" max="180" value="90">
+                    <input type="range" name="slider" id="inputServo" min="0" max="180" value="90" onmouseup="publishServo()">
                     <p id="textServo">90°</p>
                 </div>
                 <div class="card">
@@ -180,11 +180,18 @@
 
         client.on('connect', () => {
             console.log("Terhubung ke server");
-            client.subscribe('nusabot/#');
+            client.subscribe('nusabot/#', 1);
         });
 
         client.on('message', (topic, message) => {
             console.log(topic, message.toString());
+
+            if(topic === 'nusabot/suhu') {
+                document.getElementById('suhu').innerHTML = message.toString();
+            }
+            if(topic === 'nusabot/kelembapan') {
+                document.getElementById('kelembapan').innerHTML = message.toString();
+            }
         });
 
         const inputServo = document.getElementById('inputServo');
@@ -199,8 +206,12 @@
 
         submitBtn.addEventListener('click', () => {
             alert(inputLcdText.value);
-            inputLcdText.value = '';
+            client.publish('nusabot/lcd', inputLcdText.value, { qos: 1, retain: true });
         });
+
+        function publishServo() {
+            client.publish('nusabot/servo', inputServo.value, { qos: 1, retain: true });
+        }
     </script>
 </body>
 </html>
