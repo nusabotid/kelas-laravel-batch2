@@ -127,7 +127,7 @@
                 <div class="card">
                     <h3>Posisi Servo</h3>
                     <input type="range" name="slider" id="inputServo" min="0" max="180" value="90" onmouseup="publishServo()">
-                    <p id="textServo">90°</p>
+                    <p id="textServo">?°</p>
                 </div>
                 <div class="card">
                     <h3>Display LCD</h3>
@@ -143,8 +143,8 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID Perangkat</th>
-                            <th>Status Perangkat</th>
+                            <th>Serial Number</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,7 +152,7 @@
                             <tr>
                                 <td>{{ $device->serial_number }}</td>
                                 <td>
-                                    <span class="online">Online</span>
+                                    <span class="offline" id="{{ $device->serial_number }}">Tidak Diketahui</span>
                                 </td>
                             </tr>
                         @endforeach
@@ -183,17 +183,6 @@
             client.subscribe('nusabot/#', 1);
         });
 
-        client.on('message', (topic, message) => {
-            console.log(topic, message.toString());
-
-            if(topic === 'nusabot/suhu') {
-                document.getElementById('suhu').innerHTML = message.toString();
-            }
-            if(topic === 'nusabot/kelembapan') {
-                document.getElementById('kelembapan').innerHTML = message.toString();
-            }
-        });
-
         const inputServo = document.getElementById('inputServo');
         const textServo = document.getElementById('textServo');
 
@@ -212,6 +201,37 @@
         function publishServo() {
             client.publish('nusabot/servo', inputServo.value, { qos: 1, retain: true });
         }
+
+        client.on('message', (topic, message) => {
+            console.log(topic, message.toString());
+
+            if(topic === 'nusabot/suhu') {
+                document.getElementById('suhu').innerHTML = message.toString();
+            }
+            if(topic === 'nusabot/kelembapan') {
+                document.getElementById('kelembapan').innerHTML = message.toString();
+            }
+            if(topic === 'nusabot/servo') {
+                textServo.textContent = message.toString() + '°';
+                inputServo.value = message.toString();
+            }
+            if(topic === 'nusabot/lcd'){
+                inputLcdText.value = message.toString();
+            }
+
+            @foreach ($devices as $device)
+                if(topic === 'nusabot/{{ $device->serial_number }}') {
+                    document.getElementById('{{ $device->serial_number }}').innerHTML = message.toString();
+                    if(message.toString() === 'Online') {
+                        document.getElementById('{{ $device->serial_number }}').classList.remove('offline');
+                        document.getElementById('{{ $device->serial_number }}').classList.add('online');
+                    } else {
+                        document.getElementById('{{ $device->serial_number }}').classList.remove('online');
+                        document.getElementById('{{ $device->serial_number }}').classList.add('offline');
+                    }
+                }
+            @endforeach
+        });
     </script>
 </body>
 </html>
